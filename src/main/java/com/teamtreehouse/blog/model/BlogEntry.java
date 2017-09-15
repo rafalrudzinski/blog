@@ -3,18 +3,23 @@ package com.teamtreehouse.blog.model;
 import com.github.slugify.Slugify;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BlogEntry {
     private String title;
-    private String date;
+    //private String date;
+    private LocalDateTime date;
     private String entry;
     private String slug;
     private List<Comment> comments;
 
-    public BlogEntry(String title, String date, String entry, List<Comment> comments) {
+    public BlogEntry(String title, String entry, LocalDateTime date) {
         this.title = title;
+        //this.date = "1 January 2017";
         this.date = date;
         this.entry = entry;
         comments = new ArrayList<>();
@@ -34,8 +39,15 @@ public class BlogEntry {
         return title;
     }
 
+//    public String getDate() {
+//        return date;
+//    }
+
     public String getDate() {
-        return date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, YYYY 'at' HH:mm");
+        String formattedDate = date.format(formatter);
+
+        return formattedDate;
     }
 
     public String getEntry() {
