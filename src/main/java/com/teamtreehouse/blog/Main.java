@@ -52,7 +52,7 @@ public class Main {
             Comment comment = new Comment(author, LocalDateTime.now(), text);
             BlogEntry blogEntry = blogDao.findEntryBySlug(req.params("slug"));
             blogEntry.addComment(comment);
-            res.redirect("/detail/:slug");
+            res.redirect("/detail/" + blogEntry.getSlug());
             return null;
         });
     }

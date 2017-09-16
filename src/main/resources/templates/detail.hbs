@@ -18,6 +18,13 @@
     <section class="entry-comments">
         <div class="container">
             <h2>Comments</h2>
+            <div class="comment">
+                {{#each blog.comments}}
+                    <strong>{{author}}</strong>
+                    <time>{{date}}</time>
+                    <p>{{comment}}</p>
+                {{/each}}
+            </div>
             <div class="new-comment">
                 <form action="/detail/{{blog.slug}}" method="post">
                     <label for="name">Name</label>
