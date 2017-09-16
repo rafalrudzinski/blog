@@ -1,11 +1,13 @@
 package com.teamtreehouse.blog.model;
 
+import java.time.LocalDateTime;
+
 public class Comment {
     private String author;
-    private String date;
+    private LocalDateTime date;
     private String comment;
 
-    public Comment(String author, String date, String comment) {
+    public Comment(String author, LocalDateTime date, String comment) {
         this.author = author;
         this.date = date;
         this.comment = comment;
@@ -15,7 +17,7 @@ public class Comment {
         return author;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
