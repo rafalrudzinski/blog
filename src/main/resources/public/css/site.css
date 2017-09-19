@@ -206,7 +206,9 @@ a.link {
 	margin: 0 auto;
 }
 
-
+.entry #formatted-p {
+	white-space: pre-wrap;
+}
 
 /* ==========================================================================
    Form Styles
