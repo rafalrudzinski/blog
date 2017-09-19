@@ -1,6 +1,7 @@
 package com.teamtreehouse.blog.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Comment {
     private String author;
@@ -17,8 +18,11 @@ public class Comment {
         return author;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public String getDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, YYYY 'at' HH:mm");
+        String formattedDate = date.format(formatter);
+
+        return formattedDate;
     }
 
     public String getComment() {

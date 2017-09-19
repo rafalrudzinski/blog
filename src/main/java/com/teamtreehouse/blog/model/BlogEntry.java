@@ -54,6 +54,18 @@ public class BlogEntry {
         return entry;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setEntry(String entry) {
+        this.entry = entry;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
     public String getSlug() {
         return slug;
     }

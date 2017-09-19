@@ -55,5 +55,22 @@ public class Main {
             res.redirect("/detail/" + blogEntry.getSlug());
             return null;
         });
+
+        get("/edit/:slug", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("blog", blogDao.findEntryBySlug(req.params("slug")));
+            return new ModelAndView(model, "edit.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/edit/:slug", (req, res) -> {
+            String title = req.queryParams("title");
+            String entry = req.queryParams("entry");
+            BlogEntry blogEntry = blogDao.findEntryBySlug(req.params("slug"));
+            blogEntry.setTitle(title);
+            blogEntry.setEntry(entry);
+            blogEntry.setDate(LocalDateTime.now());
+            res.redirect("/detail/" + blogEntry.getSlug());
+            return null;
+        });
     }
 }
