@@ -11,15 +11,26 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.staticFileLocation;
+import static spark.Spark.*;
 
 public class Main {
     public static void main(String[] args) {
         staticFileLocation("/public");
 
         BlogDao blogDao = new SparkBlogDao();
+
+        before((req, res) -> {
+            if (req.cookie("username") != null) {
+                req.attribute("username", req.cookie("username"));
+            }
+        });
+
+        before("/new", (req, res) -> {
+            if (req.attribute("username") == null) {
+                res.redirect("/sign-in");
+                halt();
+            }
+        });
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -28,7 +39,21 @@ public class Main {
         }, new HandlebarsTemplateEngine());
 
         get("/new", (req, res) -> {
+            Map<String, String> model = new HashMap<>();
+            model.put("username", req.attribute("username"));
             return new ModelAndView(null, "new.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/sign-in", (req, res) -> {
+            return new ModelAndView(null, "sign-in.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/sign-in", (req, res) -> {
+            Map<String, String> model = new HashMap<>();
+            String username = req.queryParams("username");
+            res.cookie("username", username);
+            model.put("username", username);
+            return new ModelAndView(model, "new.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/detail/:slug", (req, res) -> {

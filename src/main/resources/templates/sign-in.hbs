@@ -1,0 +1,16 @@
+{{#partial "content"}}
+    <div class="container">
+        <div class="entry-list">
+            <div class="new-entry">
+                <h2>Please sign in:</h2>
+                <form action="/sign-in" method="post">
+                    <input type="text" placeholder="What's your user name?" name="username">
+                    <button class="button">Sign In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+
+
+{{> base.hbs}}
