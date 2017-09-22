@@ -32,6 +32,13 @@ public class Main {
             }
         });
 
+        before("/edit/:slug", (req, res) -> {
+            if (req.attribute("username") == null) {
+                res.redirect("/sign-in");
+                halt();
+            }
+        });
+
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("blog", blogDao.findAllEntries());
@@ -55,6 +62,7 @@ public class Main {
             model.put("username", username);
             return new ModelAndView(model, "new.hbs");
         }, new HandlebarsTemplateEngine());
+
 
         get("/detail/:slug", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
