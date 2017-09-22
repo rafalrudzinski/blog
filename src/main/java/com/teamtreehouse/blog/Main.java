@@ -26,14 +26,16 @@ public class Main {
         });
 
         before("/new", (req, res) -> {
-            if (req.attribute("username") == null) {
+            String username = "admin";
+            if (req.attribute("username") == null || !(req.attribute("username").equals(username))) {
                 res.redirect("/sign-in");
                 halt();
             }
         });
 
         before("/edit/:slug", (req, res) -> {
-            if (req.attribute("username") == null) {
+            String username = "admin";
+            if (req.attribute("username") == null || !(req.attribute("username").equals(username))) {
                 res.redirect("/sign-in");
                 halt();
             }
@@ -42,6 +44,7 @@ public class Main {
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("blog", blogDao.findAllEntries());
+            model.put("username", req.attribute("username"));
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -54,14 +57,6 @@ public class Main {
         get("/sign-in", (req, res) -> {
             return new ModelAndView(null, "sign-in.hbs");
         }, new HandlebarsTemplateEngine());
-
-//        post("/sign-in", (req, res) -> {
-//            Map<String, String> model = new HashMap<>();
-//            String username = req.queryParams("username");
-//            res.cookie("username", username);
-//            model.put("username", username);
-//            return new ModelAndView(model, "index.hbs");
-//        }, new HandlebarsTemplateEngine());
 
         post("/sign-in", (req, res) -> {
             Map<String, String> model = new HashMap<>();
