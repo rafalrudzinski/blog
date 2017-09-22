@@ -55,14 +55,22 @@ public class Main {
             return new ModelAndView(null, "sign-in.hbs");
         }, new HandlebarsTemplateEngine());
 
+//        post("/sign-in", (req, res) -> {
+//            Map<String, String> model = new HashMap<>();
+//            String username = req.queryParams("username");
+//            res.cookie("username", username);
+//            model.put("username", username);
+//            return new ModelAndView(model, "index.hbs");
+//        }, new HandlebarsTemplateEngine());
+
         post("/sign-in", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             String username = req.queryParams("username");
             res.cookie("username", username);
             model.put("username", username);
-            return new ModelAndView(model, "new.hbs");
-        }, new HandlebarsTemplateEngine());
-
+            res.redirect("/");
+            return null;
+        });
 
         get("/detail/:slug", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
