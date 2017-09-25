@@ -20,6 +20,9 @@ public class SparkBlogDao implements BlogDao {
     }
 
     @Override
+    public boolean removeEntry(BlogEntry blogEntry) { return blogEntries.remove(blogEntry); }
+
+    @Override
     public List<BlogEntry> findAllEntries() {
         return new ArrayList<>(blogEntries);
     }

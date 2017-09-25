@@ -9,6 +9,9 @@
                         <p id="formatted-p">{{blog.entry}}</p>
                         <p>
                             <a class="link" href="/edit/{{blog.slug}}">Edit Entry</a>
+                            <form action="/delete/{{blog.slug}}" method="post">
+                                 <input type="submit" value="Delete" class="button">
+                            </form>
                         </p>
                     </div>
                 </article>

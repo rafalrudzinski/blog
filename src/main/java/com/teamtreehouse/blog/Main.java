@@ -108,5 +108,12 @@ public class Main {
             res.redirect("/detail/" + blogEntry.getSlug());
             return null;
         });
+
+        post("/delete/:slug", (req, res) -> {
+            BlogEntry blogEntry = blogDao.findEntryBySlug(req.params("slug"));
+            blogDao.removeEntry(blogEntry);
+            res.redirect("/");
+            return null;
+        });
     }
 }
